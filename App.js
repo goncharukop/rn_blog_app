@@ -1,11 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { AuthorScreen } from './src/screens/AuthorScreen';
+// import { PostsList } from './src/components/PostsList';
+import { MainScreen } from './src/screens/MainScreen';
+import { PostScreen } from './src/screens/PostScreen';
 
 export default function App() {
+  const [showedPost, setShowedPost] = useState(null);
+  
+  const [author, setAuthor] = useState(null);
+
+  let content = <MainScreen getPost={setShowedPost} />;
+
+  if (showedPost) {
+    content = (
+      <PostScreen
+        post={showedPost}
+        hidePost={setShowedPost}
+        getAuthor={setAuthor}
+      />
+    )
+  }
+
+  if (author) {
+    content = (
+      <AuthorScreen
+        author={author}
+        getAuthorPosts={setAuthor}
+        getPost={setShowedPost}
+      />
+    )
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      {content}
       <StatusBar style="auto" />
     </View>
   );
