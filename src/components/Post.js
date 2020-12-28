@@ -1,26 +1,26 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Button } from 'react-native';
 
-export const Post = ({ post, getUserName, getPostComments, getPost }) => {
+export const Post = ({ post, getUserName, getPostComments, getPost, getAuthorPosts }) => {
   const comments = getPostComments(post);
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.5}
-      onPress={() => getPost(post)}
-    >
+    <View>
       <Text style={styles.textTitle}>{post.title}</Text>
       <Text style={styles.text}>{post.body}</Text>
       <Text style={styles.textAuthor}>
-        {/* Author: {post.name + '0'} */}
         Author: {getUserName(post)}
       </Text>
 
+      <Button
+        title='Show details'
+        onPress={() => {
+          getAuthorPosts(null)
+          getPost(post)
+          }}
+      />
 
-
-      <View
-        style={styles.commentBlock}
-      >
+      <View style={styles.commentBlock}>
         <View >
           <Image
             style={styles.image}
@@ -42,14 +42,8 @@ export const Post = ({ post, getUserName, getPostComments, getPost }) => {
             {comments.length}
           </Text>
         </View>
-        {/* <View >
-          <Image
-            style={styles.image}
-            source={require('../../assets/gong.png')}
-          />
-        </View> */}
       </View>
-    </TouchableOpacity>
+    </View>
   )
 };
 

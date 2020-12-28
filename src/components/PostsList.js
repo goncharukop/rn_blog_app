@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { getComments } from '../api/comments';
 import { getPosts } from '../api/posts';
 import { getUsers } from '../api/users';
 import { Post } from './Post';
 
-export const PostsList = ({ getPost }) => {
+export const PostsList = ({ getPost, getAuthorPosts }) => {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [comments, setComments] = useState([]);
@@ -23,7 +23,7 @@ export const PostsList = ({ getPost }) => {
     return postComments;
   }
 
-  const getData = async() => {    
+  const getData = async() => {
     const userData = await getUsers();
     setUsers(userData);
     
@@ -51,20 +51,13 @@ export const PostsList = ({ getPost }) => {
                 style={styles.wrap}
                 key={item.id}
               >
-                  
-                <View>
-                  <TouchableOpacity
-                    activeOpacity={0.5}
-                    onPress={() => getPost(item)}
-                  >
-                    <Post
-                      post={item}
-                      getUserName={getUserName}
-                      getPostComments={getPostComments}
-                      getPost={getPost}
-                    />
-                  </TouchableOpacity>
-                </View>
+                <Post
+                  post={item}
+                  getUserName={getUserName}
+                  getPostComments={getPostComments}
+                  getPost={getPost}
+                  getAuthorPosts={getAuthorPosts}
+                />
               </View>
             )}
           />

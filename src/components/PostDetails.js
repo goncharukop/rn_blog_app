@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
 import { getComments } from '../api/comments';
 import { getUsers } from '../api/users';
 
@@ -32,30 +32,29 @@ export const PostDetails = ({ post, hidePost, getAuthor }) => {
       {isLoading
         ? <Text>Loading...</Text>
         : <View >
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => hidePost(null)}
-            >
+            <View>
               <Text style={styles.textTitle}>{post.title}</Text>
               <Text style={styles.text}>{post.body}</Text>
-            </TouchableOpacity>
-
+            </View>
 
               <View style={styles.button}>
-                <Button title='<-- Back' onPress={() => hidePost(null)} />
+                <Button
+                  title='<-- Back'
+                  onPress={() => hidePost(null)}
+                />
                 
                 <Text style={styles.textAuthor}>
                   Author: {authorName[0].username}
                 </Text>
 
-                <Button title='All posts' onPress={() => getAuthor(authorName[0])} />
+                <Button
+                  title='All posts'
+                  onPress={() => getAuthor(authorName[0])}
+                  />
               </View>
-              
-
 
             <Text style={styles.commentsTitle}>Comments</Text>
               <FlatList
-                style={styles.commentBlock}
                 data={postComments}
                 renderItem={({item}) => (
                   <View
@@ -112,13 +111,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
     padding: 10
   },
-  commentBlock: {
-
-    // backgroundColor: 'lightgrey'
-  },
   comment: {
     borderRadius: 14,
-    // alignItems: 'center',
     backgroundColor: '#e8e8e8',
     margin: 5,
     padding: 10,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
 import { getComments } from '../api/comments';
 import { getPosts } from '../api/posts';
 import { Post } from './Post';
@@ -37,7 +37,10 @@ export const Author = ({ author, getAuthorPosts, getPost }) => {
         ? <Text>Loading...</Text>
         : <View >
             <View style={styles.header}>
-              <Button title='<-- BACK' onPress={() => getAuthorPosts(null)} />
+              <Button
+                title='<-- Back'
+                onPress={() => getAuthorPosts(null)} 
+              />
 
               <Text style={styles.textAuthor}>
                 Author: {author.username}
@@ -52,21 +55,13 @@ export const Author = ({ author, getAuthorPosts, getPost }) => {
                   style={styles.wrap}
                   key={item.id}
                 >
-                  <View>
-                      <Post
-                        post={item}
-                        getUserName={() => author.username}
-                        getPostComments={getPostComments}
-                        getPost={getPost}
-                      />
-                      <Button
-                        title='Show details'
-                        onPress={() => {
-                          getAuthorPosts(null)
-                          getPost(item)
-                          }}
-                      />
-                  </View>
+                  <Post
+                    post={item}
+                    getUserName={() => author.username}
+                    getPostComments={getPostComments}
+                    getPost={getPost}
+                    getAuthorPosts={getAuthorPosts}
+                  />
                 </View>
               )}
             />
@@ -97,9 +92,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 20
   },
-  // button: {
-
-  // },
   textAuthor: {
     fontSize: 24,
     fontWeight: 'bold',
