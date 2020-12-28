@@ -68,15 +68,13 @@ export const PostsList = ({ getPost, getAuthorPosts }) => {
 
 const styles = StyleSheet.create({
   wrap: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: 10,
     borderBottomWidth: 2,
     borderRightWidth: 2,
     borderColor: 'lightgrey',
     borderBottomRightRadius: 10,
     backgroundColor: '#f3f3f3',
     padding: 10,
+    margin: 10,
   },
   container: {
     alignItems: 'center',
